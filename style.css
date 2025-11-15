@@ -1,29 +1,151 @@
-/* Improved mobile layout styles */
-body {
-    font-size: 16px;
-    line-height: 1.5;
-    padding: 0 15px;
+/* mobile-first responsive stylesheet for your page */
+
+/* Base / reset */
+* { box-sizing: border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+html,body { height: 100%; margin: 0; padding: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color: #333; background: linear-gradient(180deg,#fff6fb,#fff); }
+
+/* Page wrapper */
+#wrapper {
+  max-width: 1100px;
+  margin: 12px auto;
+  padding: 14px;
+  position: relative;
 }
 
-.header { 
-    text-align: center;
-    padding: 10px 0;
+/* Header-ish flags (keeps them smaller on mobile) */
+.flag__birthday {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.flag__birthday img {
+  width: 18%;
+  max-width: 90px; /* keeps it compact on narrow phones */
+  height: auto;
+  display: block;
 }
 
-.nav { 
-    display: flex;
-    flex-direction: column;
+/* Content layout: single column on mobile */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: stretch;
 }
 
-.nav a { 
-    margin: 5px 0;
-    padding: 10px;
-    background-color: #007BFF;
-    color: white;
-    text-align: center;
+/* Left and right columns — full width on mobile */
+.left, .right {
+  width: 100%;
 }
 
-.footer {
-    text-align: center;
-    padding: 20px;
+/* Typographic treatments */
+.title { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.happy { margin: 0; font-size: 30px; line-height: 1; letter-spacing: 0.6px; font-weight: 800; color: #ff3366; }
+.birthday { margin: 0; font-size: 20px; font-weight: 700; color: #ff4d88; }
+
+/* hat image */
+.hat img { width: 110px; max-width: 36%; height: auto; display:block; }
+
+/* date text */
+.date__of__birth { margin-top: 8px; display:flex; align-items:center; gap:8px; color:#ff3366; font-weight:600; }
+.date__of__birth span { font-size: 15px; }
+
+/* button */
+.btn { margin-top: 10px; }
+#btn__letter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(90deg,#ff4d88,#ff3366);
+  color: #fff;
+  border: 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(255,77,136,0.12);
+}
+
+/* right card */
+.box__account {
+  background: linear-gradient(180deg,#fff,#ffeef7);
+  border-radius: 14px;
+  padding: 12px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.06);
+}
+.box__account .image img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid rgba(255,255,255,0.9);
+}
+
+/* name line */
+.name { display:flex; align-items:center; gap:8px; font-weight:800; font-size:16px; color:#333; }
+
+/* balloons — keep them relative so they don't break layout */
+.balloon_one img, .balloon_two img { width: 72px; height: auto; display:block; }
+
+/* circular text box (keep simple on mobile) */
+.cricle { margin-top: 10px; display:flex; align-items:center; justify-content:center; }
+.text__cricle { display:flex; gap:4px; flex-wrap:wrap; justify-content:center; }
+
+/* Decorations — hide on small screens to improve performance */
+.decorate_star, .decorate_flower--one, .decorate_flower--two, .decorate_flower--three, .decorate_bottom, .smiley__icon {
+  display: none;
+}
+
+/* Letter modal (full-screen on mobile) */
+.box__letter {
+  position: fixed;
+  inset: 0;
+  display: none; /* toggled by JS */
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0,0,0,0.45);
+  z-index: 2000;
+}
+.letter__border {
+  width: 100%;
+  max-width: 720px;
+  background: linear-gradient(180deg,#fff,#fff4fb);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.24);
+}
+.letter { display:flex; gap:10px; flex-direction: column; }
+.letter .left { display:flex; gap:6px; align-items:center; justify-content:center; }
+.letter .left img{ width:80px; height:auto; display:block; }
+.letter .right { display:block; }
+.title__letter { font-size:18px; font-weight:800; margin-bottom:8px; }
+.text__letter p { white-space: pre-wrap; line-height:1.56; font-size:15px; margin:0; }
+
+/* Close button */
+.letter__border .close { position:absolute; top:12px; right:12px; cursor:pointer; color:#333; }
+
+/* small device tweaks */
+@media (max-width: 420px) {
+  .happy { font-size: 26px; }
+  .birthday { font-size: 16px; }
+  .box__account .image img { width: 92px; height: 92px; }
+  #btn__letter { padding: 8px 10px; font-size: 14px; }
+  .hat img { width: 90px; }
+  .letter__border { padding: 12px; }
+}
+
+/* larger screens (tablet+, enhance layout) */
+@media (min-width: 840px) {
+  .content { flex-direction: row; align-items:flex-start; gap: 20px; }
+  .flag__birthday img { width: 22%; max-width: 150px; }
+  .happy { font-size: 48px; }
+  .birthday { font-size: 30px; }
+  /* show decorative elements on wide screens if you want */
+  .decorate_star, .decorate_flower--one, .decorate_flower--two, .decorate_flower--three, .decorate_bottom, .smiley__icon { display: block; }
 }
