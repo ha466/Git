@@ -1,282 +1,463 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="title" content="Happy 19th Birthday Mithu | From a Friend">
   <meta name="github" content="https://github.com/ha466">
-  <title>Happy 19th Birthday Mithu!</title>  <!-- Embedded responsive CSS (mobile-first) -->  <style>
-    :root{
-      --bg:#fff6fb;
-      --accent:#ff4d88;
-      --muted:#f7eef4;
-      --text:#333;
-      --max-width:1100px;
+  <title>Happy 19th Birthday Mithu!</title>
+
+  <!-- Font Awesome & jQuery (CDNs) -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+6Y6mYh2j8bg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+          integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+          crossorigin="anonymous"></script>
+
+  <!-- Mobile-first CSS (embedded) -->
+  <style>
+    /* ===== base / reset ===== */
+    * { box-sizing: border-box; }
+    html,body { height:100%; margin:0; padding:0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; background: linear-gradient(180deg,#fff6fb,#fff); color: #222; }
+    img { max-width:100%; display:block; }
+
+    /* ===== page container ===== */
+    :root {
+      --accent: #ff4d88;
+      --accent-2: #ff3366;
+      --muted: #fff4fb;
+      --max-width: 1100px;
+    }
+    #wrapper { max-width:var(--max-width); margin:14px auto; padding:14px; position:relative; }
+
+    /* ===== flags header ===== */
+    .flag__birthday { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+    .flag__birthday img { width:18%; max-width:96px; height:auto; }
+
+    /* ===== content layout - mobile-first ===== */
+    .content { display:flex; flex-direction:column; gap:14px; align-items:stretch; }
+    .left, .right { width:100%; }
+
+    /* Title block */
+    .title { display:flex; flex-direction:column; gap:8px; align-items:flex-start; }
+    .happy, .birthday { margin:0; line-height:1; font-weight:900; color:var(--accent-2); letter-spacing:0.6px; }
+    .happy { font-size:30px; }
+    .birthday { font-size:20px; color:var(--accent); }
+
+    .happy span, .birthday span {
+      display:inline-block;
+      opacity:0;
+      transform: translateY(6px);
+      animation: fadeInUp 400ms forwards;
+    }
+    @keyframes fadeInUp { to { opacity:1; transform: translateY(0); } }
+
+    .hat img { width:110px; }
+
+    /* date & button */
+    .date__of__birth { margin-top:8px; display:flex; gap:8px; align-items:center; color:var(--accent); font-weight:700; }
+    .date__of__birth span { font-size:15px; }
+
+    .btn { margin-top:10px; }
+    #btn__letter {
+      display:inline-flex; gap:8px; align-items:center;
+      background: linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#fff; border:0; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:800;
+      box-shadow:0 8px 22px rgba(255,77,136,0.12);
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:linear-gradient(180deg,var(--muted),#fff);color:var(--text)}
+    /* Right card (profile) */
+    .box__account {
+      background: linear-gradient(180deg,#fff,#ffeef7);
+      border-radius:14px; padding:12px; display:flex; flex-direction:column; align-items:center; gap:10px;
+      box-shadow:0 8px 26px rgba(0,0,0,0.06);
+    }
+    .box__account .image img { width:120px; height:120px; object-fit:cover; border-radius:50%; border:5px solid rgba(255,255,255,0.92); }
+    .name { display:flex; align-items:center; gap:8px; font-weight:800; font-size:16px; color:#333; }
+    .balloon_one img, .balloon_two img { width:72px; height:auto; }
 
-    /* Wrapper & grid */
-    #wrapper{max-width:var(--max-width);margin:18px auto;padding:18px;position:relative}
+    .cricle { margin-top:10px; display:flex; align-items:center; justify-content:center; }
+    .text__cricle { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; }
 
-    .flag__birthday{display:flex;justify-content:space-between;gap:12px}
-    .flag__left,.flag__right{display:block;max-width:30%;height:auto}
-
-    .content{display:flex;gap:18px;align-items:flex-start}
-    .left{flex:1;min-width:220px}
-    .right{flex:1;min-width:220px}
-
-    /* Title */
-    .title{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
-    .happy,.birthday{margin:0;line-height:1}
-    .happy span,.birthday span{display:inline-block;opacity:0;animation:fadeIn 600ms forwards;}
-    @keyframes fadeIn{to{opacity:1;transform:none}}
-
-    .hat img{display:block}
-
-    .date__of__birth{margin-top:6px;font-weight:600;color:var(--accent);display:flex;gap:8px;align-items:center}
-    .date__of__birth span{font-size:16px}
-
-    .btn{margin-top:12px}
-    #btn__letter{background:var(--accent);color:white;border:0;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
-
-    /* Right card */
-    .box__account{background:linear-gradient(180deg,#fff,#ffeef7);border-radius:18px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
-    .box__account .image img{width:160px;height:160px;object-fit:cover;border-radius:50%;border:6px solid rgba(255,255,255,0.9)}
-    .name{display:flex;align-items:center;gap:8px;font-weight:700}
-
-    .balloon_one,.balloon_two{position:relative}
-
-    .cricle{margin-top:12px;display:flex;align-items:center;justify-content:center}
-    .text__cricle{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
-
-    /* Decorations (minimize on mobile) */
-    .decorate_star,.decorate_flower--one,.decorate_flower--two,.decorate_flower--three,.decorate_bottom,.smiley__icon{position:absolute}
-    .decorate_star{width:8px;height:8px;border-radius:50%;background:var(--accent);opacity:0.15}
-    .decorate_bottom{bottom:10px;left:8px}
+    /* decorations: hidden on small screens for performance */
+    .decorate_star, .decorate_flower--one, .decorate_flower--two, .decorate_flower--three, .decorate_bottom, .smiley__icon { display:none; }
 
     /* Letter modal */
-    .box__letter{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,0.45);z-index:2000}
-    .letter__border{background:linear-gradient(180deg,#fff,#fff4fb);border-radius:14px;padding:12px;max-width:720px;width:100%;box-shadow:0 12px 36px rgba(0,0,0,0.25);}
-    .letter{display:flex;gap:12px}
-    .letter .left{flex:0 0 96px;display:flex;flex-direction:column;align-items:center}
-    .letter .right{flex:1}
-    .title__letter{font-weight:800;font-size:20px;margin-bottom:8px}
-    .text__letter p{white-space:pre-wrap;line-height:1.6}
-    .close{position:absolute;top:10px;right:12px;cursor:pointer;color:#333}
+    .box__letter {
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:18px;
+      background: rgba(0,0,0,0.45); z-index:2000;
+    }
+    .letter__border {
+      width:100%; max-width:760px; background: linear-gradient(180deg,#fff,#fff4fb); border-radius:14px; padding:14px;
+      box-shadow:0 18px 46px rgba(0,0,0,0.26); position:relative;
+    }
+    .letter { display:flex; gap:12px; flex-direction:column; }
+    .letter .left { display:flex; gap:6px; align-items:center; justify-content:center; }
+    .letter .left img { width:88px; }
+    .title__letter { font-size:20px; font-weight:800; margin-bottom:8px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .text__letter p { white-space:pre-wrap; line-height:1.6; margin:0; font-size:15px; }
 
-    /* Small-screen adjustments (mobile-first) */
-    @media (max-width:840px){
-      #wrapper{padding:12px;margin:8px}
-      .flag__left,.flag__right{max-width:22%;}
-      .content{flex-direction:column}
-      .left,.right{width:100%}
-      .box__account .image img{width:120px;height:120px}
-      .happy{font-size:36px}
-      .birthday{font-size:22px}
-      .date__of__birth span{font-size:14px}
-      .letter{flex-direction:column}
-      .letter .left{flex:0 0 auto;order:2}
-      .letter .right{order:1}
-      .letter__border{padding:14px}
+    .close { position:absolute; top:12px; right:12px; cursor:pointer; color:#333; font-size:18px; }
 
-      /* hide heavy decorations to save layout space */
-      .decorate_star,.decorate_flower--one,.decorate_flower--two,.decorate_flower--three,.decorate_bottom,.smiley__icon{display:none}
+    /* small phones */
+    @media (max-width:420px) {
+      #wrapper { padding:10px; margin:8px; }
+      .happy { font-size:26px; }
+      .birthday { font-size:16px; }
+      .box__account .image img { width:92px; height:92px; }
+      .hat img { width:90px; }
+      #btn__letter { padding:8px 10px; font-size:14px; }
+      .letter__border { padding:12px; }
     }
 
-    /* Very small phones */
-    @media (max-width:420px){
-      .happy{font-size:28px}
-      .birthday{font-size:18px}
-      .box__account .image img{width:96px;height:96px}
-      #btn__letter{padding:8px 10px;font-size:14px}
-      .title__letter{font-size:18px}
+    /* larger screens - two-column */
+    @media (min-width:840px) {
+      .content { flex-direction:row; gap:20px; align-items:flex-start; }
+      .flag__birthday img { width:22%; max-width:150px; }
+      .happy { font-size:48px; }
+      .birthday { font-size:30px; }
+      /* show decorations on wide screens */
+      .decorate_star, .decorate_flower--one, .decorate_flower--two, .decorate_flower--three, .decorate_bottom, .smiley__icon { display:block; }
     }
 
-    /* Accessibility & small polish */
-    #btn__letter:active,#btn__letter:focus{outline:3px solid rgba(255,77,136,0.18)}
-    .animationOp{opacity:1;transform:none}
+    /* small accessibility / focus */
+    #btn__letter:focus { outline:3px solid rgba(255,77,136,0.18); border-radius:10px; }
+    .animationOp { opacity:1; transform:none; transition: all 420ms ease; }
+    .heart { opacity:0.95; }
 
-  </style>  <!-- keep external libs as before (font-awesome, jQuery) -->  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+6Y6mYh2j8bg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>  <!-- keep the floating heart cursor script (unchanged) -->  <script type="text/javascript">/* original floating-heart script omitted for brevity in canvas version; keep your existing script */</script></head>
+  </style>
+</head>
 <body>
-  <!-- Keep original HTML structure; styling is now responsive -->  <div id="wrapper">
+  <div id="wrapper">
     <div class="flag__birthday">
-      <img src="./images/1.png" alt="" width="350" class="flag__left">
-      <img src="./images/1.png" alt="" width="350" class="flag__right">
-    </div><div class="content">
-  <div class="left">
-    <div class="title">
-      <h1 class="happy">
-        <span style="--t: 4s;">H</span>
-        <span style="--t: 4.2s;">a</span>
-        <span style="--t: 4.4s;">p</span>
-        <span style="--t: 4.6s;">p</span>
-        <span style="--t: 4.8s;">y</span>
-      </h1>
-      <h1 class="birthday">
-        <span style="--t: 5s;">1</span>
-        <span style="--t: 5.2s;">9</span>
-        <span style="--t: 5.4s;">t</span>
-        <span style="--t: 5.6s;">h</span>
-        <span style="--t: 5.8s;"> </span>
-        <span style="--t: 6s;">B</span>
-        <span style="--t: 6.2s;">i</span>
-        <span style="--t: 6.4s;">r</span>
-        <span style="--t: 6.6s;">t</span>
-        <span style="--t: 6.8s;">h</span>
-        <span style="--t: 7s;">d</span>
-        <span style="--t: 7.2s;">a</span>
-        <span style="--t: 7.4s;">y</span>
-      </h1>
-      <div class="hat">
-        <img src="./images/hat.png" alt="" width="130">
-      </div>
+      <img src="./images/1.png" alt="left-flag" class="flag__left">
+      <img src="./images/1.png" alt="right-flag" class="flag__right">
     </div>
 
-    <div class="date__of__birth">
-      <span></span>
-    </div>
-
-    <div class="btn">
-      <button id="btn__letter">
-        Open Your Letter 
-        <i class="fa-regular fa-envelope"></i>
-      </button>
-    </div>
-  </div>
-
-  <div class="right">
-    <div class="box__account">
-      <div class="image">
-        <img src="./images/r5.jpg" alt="Mithu's picture">
-      </div>
-      <div class="name">
-        <i class="fa-solid fa-heart"></i>
-        <span>Mithu</span>
-        <i class="fa-solid fa-heart"></i>
-      </div>
-      <div class="balloon_one">
-        <img width="100px" src="./images/balloon1.png" alt="">
-      </div>
-      <div class="balloon_two">
-        <img width="100px" src="./images/balloon2.png" alt="">
-      </div>
-    </div>
-
-    <div class="cricle">
-      <div class="text__cricle">
-        <span style="--i: 1;">h</span>
-        <span style="--i: 2;">a</span>
-        <span style="--i: 3;">p</span>
-        <span style="--i: 4;">p</span>
-        <span style="--i: 5;">y</span>
-        <span style="--i: 6;">-</span>
-        <span style="--i: 7;">1</span>
-        <span style="--i: 8;">9</span>
-        <span style="--i: 9;">t</span>
-        <span style="--i: 10;">h</span>
-        <span style="--i: 11;">-</span>
-        <span style="--i: 12;">M</span>
-        <span style="--i: 13;">i</span>
-        <span style="--i: 14;">t</span>
-        <span style="--i: 15;">h</span>
-        <span style="--i: 16;">u</span>
-        <span style="--i: 17;">-</span>
-      </div>
-      <i class="fa-solid fa-heart"></i>
-    </div>
-  </div>
-</div>
-
-<div class="decorate_star star1" style="--t: 15s;"></div>
-<div class="decorate_star star2" style="--t: 15.2s;"></div>
-<div class="decorate_star star3" style="--t: 15.4s;"></div>
-<div class="decorate_star star4" style="--t: 15.6s;"></div>
-<div class="decorate_star star5" style="--t: 15.8s;"></div>
-
-<div class="decorate_flower--one" style="--t: 15s;">
-  <img width="20" src="./images/decorate_flower.png" alt="">
-</div>
-<div class="decorate_flower--two" style="--t: 15.3s;">
-  <img width="20" src="./images/decorate_flower.png" alt="">
-</div>
-<div class="decorate_flower--three" style="--t: 15.6s;">
-  <img width="20" src="./images/decorate_flower.png" alt="">
-</div>
-
-<div class="decorate_bottom">
-  <img src="./images/decorate.png" alt="" width="100">
-</div>
-<div class="smiley__icon">
-  <img src="./images/smiley_icon.png" alt="" width="100">
-</div>
-
-<!-- Letter Box -->
-<div class="box__letter">
-  <div class="letter__border">
-    <div class="letter">
-      <div class="title__letter"></div>
-      <div class="content__letter">
-        <div class="left">
-          <img id="heart__letter" src="https://media0.giphy.com/media/c76IJLufpNwSULPk77/giphy.gif" alt="">
-          <img class="heart heart_1" style="--t: 0.2s" width="20" src="./images/heart.png" alt="">
-          <img class="heart heart_2" style="--t: 0.4s" width="20" src="./images/heart.png" alt="">
-          <img class="heart heart_3" style="--t: 0.6s" width="20" src="./images/heart.png" alt="">
-          <img class="heart heart_4" style="--t: 0.8s" width="20" src="./images/heart.png" alt="">
+    <div class="content">
+      <div class="left">
+        <div class="title">
+          <h1 class="happy">
+            <span style="--t: 4s;">H</span>
+            <span style="--t: 4.2s;">a</span>
+            <span style="--t: 4.4s;">p</span>
+            <span style="--t: 4.6s;">p</span>
+            <span style="--t: 4.8s;">y</span>
+          </h1>
+          <h1 class="birthday">
+            <span style="--t: 5s;">1</span>
+            <span style="--t: 5.2s;">9</span>
+            <span style="--t: 5.4s;">t</span>
+            <span style="--t: 5.6s;">h</span>
+            <span style="--t: 5.8s;"> </span>
+            <span style="--t: 6s;">B</span>
+            <span style="--t: 6.2s;">i</span>
+            <span style="--t: 6.4s;">r</span>
+            <span style="--t: 6.6s;">t</span>
+            <span style="--t: 6.8s;">h</span>
+            <span style="--t: 7s;">d</span>
+            <span style="--t: 7.2s;">a</span>
+            <span style="--t: 7.4s;">y</span>
+          </h1>
+          <div class="hat">
+            <img src="./images/hat.png" alt="party-hat">
+          </div>
         </div>
-        <div class="right">
-          <div class="love__img">
-            <img src="https://media4.giphy.com/media/W4jyjmIpnw6e38B6Qc/giphy.gif" alt="" width="220">
+
+        <div class="date__of__birth">
+          <span></span>
+        </div>
+
+        <div class="btn">
+          <button id="btn__letter">
+            Open Your Letter
+            <i class="fa-regular fa-envelope"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="box__account">
+          <div class="image">
+            <img src="./images/r5.jpg" alt="Mithu's picture">
           </div>
-          <div class="text__letter">
-            <p></p>
+          <div class="name">
+            <i class="fa-solid fa-heart"></i>
+            <span>Mithu</span>
+            <i class="fa-solid fa-heart"></i>
           </div>
-          <img id="mewmew" width="80" src="./images/mewmew.gif" alt="">
+          <div class="balloon_one">
+            <img src="./images/balloon1.png" alt="balloon1">
+          </div>
+          <div class="balloon_two">
+            <img src="./images/balloon2.png" alt="balloon2">
+          </div>
+        </div>
+
+        <div class="cricle">
+          <div class="text__cricle">
+            <span style="--i:1;">h</span>
+            <span style="--i:2;">a</span>
+            <span style="--i:3;">p</span>
+            <span style="--i:4;">p</span>
+            <span style="--i:5;">y</span>
+            <span style="--i:6;">-</span>
+            <span style="--i:7;">1</span>
+            <span style="--i:8;">9</span>
+            <span style="--i:9;">t</span>
+            <span style="--i:10;">h</span>
+            <span style="--i:11;">-</span>
+            <span style="--i:12;">M</span>
+            <span style="--i:13;">i</span>
+            <span style="--i:14;">t</span>
+            <span style="--i:15;">h</span>
+            <span style="--i:16;">u</span>
+            <span style="--i:17;">-</span>
+          </div>
+          <i class="fa-solid fa-heart"></i>
         </div>
       </div>
     </div>
-    <div class="close">
-      <i class="fa-solid fa-xmark"></i>
+
+    <!-- Decorations (appear on larger screens) -->
+    <div class="decorate_star star1" style="--t: 15s;"></div>
+    <div class="decorate_star star2" style="--t: 15.2s;"></div>
+    <div class="decorate_star star3" style="--t: 15.4s;"></div>
+    <div class="decorate_star star4" style="--t: 15.6s;"></div>
+    <div class="decorate_star star5" style="--t: 15.8s;"></div>
+
+    <div class="decorate_flower--one" style="--t: 15s;">
+      <img width="20" src="./images/decorate_flower.png" alt="">
+    </div>
+    <div class="decorate_flower--two" style="--t: 15.3s;">
+      <img width="20" src="./images/decorate_flower.png" alt="">
+    </div>
+    <div class="decorate_flower--three" style="--t: 15.6s;">
+      <img width="20" src="./images/decorate_flower.png" alt="">
+    </div>
+
+    <div class="decorate_bottom">
+      <img src="./images/decorate.png" alt="" width="100">
+    </div>
+    <div class="smiley__icon">
+      <img src="./images/smiley_icon.png" alt="" width="100">
+    </div>
+
+    <!-- Letter Box -->
+    <div class="box__letter">
+      <div class="letter__border">
+        <div class="letter">
+          <div class="title__letter"></div>
+          <div class="content__letter">
+            <div class="left">
+              <img id="heart__letter" src="https://media0.giphy.com/media/c76IJLufpNwSULPk77/giphy.gif" alt="heart gif">
+              <img class="heart heart_1" style="--t: 0.2s" width="20" src="./images/heart.png" alt="heart1">
+              <img class="heart heart_2" style="--t: 0.4s" width="20" src="./images/heart.png" alt="heart2">
+              <img class="heart heart_3" style="--t: 0.6s" width="20" src="./images/heart.png" alt="heart3">
+              <img class="heart heart_4" style="--t: 0.8s" width="20" src="./images/heart.png" alt="heart4">
+            </div>
+            <div class="right">
+              <div class="love__img">
+                <img src="https://media4.giphy.com/media/W4jyjmIpnw6e38B6Qc/giphy.gif" alt="love gif" width="220">
+              </div>
+              <div class="text__letter">
+                <p></p>
+              </div>
+              <img id="mewmew" width="80" src="./images/mewmew.gif" alt="cute gif">
+            </div>
+          </div>
+        </div>
+        <div class="close">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-  </div>  <!-- personalized script (unchanged) -->  <script>
+  <!-- ===== Floating Heart Cursor Script (complete) ===== -->
+  <!-- Restored from original and included in file (keeps all behaviour) -->
+  <script type="text/javascript">
+  (function(){
+    var colours = ['#ff3366', '#ff6699', '#ff33cc', '#ff99cc', '#ff66b2', '#ff0066'];
+    var minisize = 16;
+    var maxisize = 28;
+    var hearts = 66;
+    var over_or_under = "over";
+
+    var x = ox = 400;
+    var y = oy = 300;
+    var swide = 800;
+    var shigh = 600;
+    var sleft = sdown = 0;
+    var herz = [];
+    var herzx = [];
+    var herzy = [];
+    var herzs = [];
+    var kiss = false;
+
+    function addRVLoadEvent(funky) {
+      var oldonload = window.onload;
+      if (typeof(oldonload) != 'function') window.onload = funky;
+      else window.onload = function() {
+        if (oldonload) oldonload();
+        funky();
+      }
+    }
+
+    addRVLoadEvent(mwah);
+
+    function mwah() {
+      if (document.getElementById) {
+        var i, heart;
+        for (i = 0; i < hearts; i++) {
+          heart = createDiv("auto", "auto");
+          heart.style.visibility = "hidden";
+          heart.style.zIndex = (over_or_under == "over") ? "1001" : "0";
+          heart.style.color = colours[i % colours.length];
+          heart.style.pointerEvents = "none";
+          heart.style.opacity = 0.75;
+          heart.appendChild(document.createTextNode(String.fromCharCode(9829)));
+          document.body.appendChild(heart);
+          herz[i] = heart;
+          herzy[i] = false;
+        }
+        set_scroll();
+        set_width();
+        herzle();
+      }
+    }
+
+    function herzle() {
+      var c;
+      if (Math.abs(x - ox) > 1 || Math.abs(y - oy) > 1) {
+        ox = x;
+        oy = y;
+        for (c = 0; c < hearts; c++) if (herzy[c] === false) {
+          herz[c].firstChild.nodeValue = String.fromCharCode(9829);
+          herz[c].style.left = (herzx[c] = x - minisize / 2) + "px";
+          herz[c].style.top = (herzy[c] = y - minisize) + "px";
+          herz[c].style.fontSize = minisize + "px";
+          herz[c].style.fontWeight = 'normal';
+          herz[c].style.visibility = 'visible';
+          herzs[c] = minisize;
+          break;
+        }
+      }
+      for (c = 0; c < hearts; c++) if (herzy[c] !== false) blow_me_a_kiss(c);
+      setTimeout(herzle, 40);
+    }
+
+    document.onmousedown = pucker;
+    document.onmouseup = function() { clearTimeout(kiss); };
+
+    function pucker() {
+      ox = -1;
+      oy = -1;
+      kiss = setTimeout(pucker, 100);
+    }
+
+    function blow_me_a_kiss(i) {
+      herzy[i] -= herzs[i] / minisize + i % 2;
+      herzx[i] += (i % 5 - 2) / 5;
+      if (herzy[i] < sdown - herzs[i] || herzx[i] < sleft - herzs[i] || herzx[i] > sleft + swide - herzs[i]) {
+        herz[i].style.visibility = "hidden";
+        herzy[i] = false;
+      }
+      else if (herzs[i] > minisize + 2 && Math.random() < .5 / hearts) break_my_heart(i);
+      else {
+        if (Math.random() < maxisize / herzy[i] && herzs[i] < maxisize) herz[i].style.fontSize = (++herzs[i]) + "px";
+        herz[i].style.top = herzy[i] + "px";
+        herz[i].style.left = herzx[i] + "px";
+      }
+    }
+
+    function break_my_heart(i) {
+      herz[i].firstChild.nodeValue = String.fromCharCode(9676);
+      herz[i].style.fontWeight = 'bold';
+      herzy[i] = false;
+      setTimeout(function(){ herz[i].style.visibility = "hidden"; }, 400);
+    }
+
+    document.onmousemove = mouse;
+    function mouse(e) {
+      if (e) { y = e.pageY; x = e.pageX; }
+      else { set_scroll(); y = event.y + sdown; x = event.x + sleft; }
+    }
+
+    window.onresize = set_width;
+    function set_width() {
+      var sw_min = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+      var sh_min = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+      swide = sw_min;
+      shigh = sh_min;
+    }
+
+    window.onscroll = set_scroll;
+    function set_scroll() {
+      sdown = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      sleft = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
+    }
+
+    function createDiv(height, width) {
+      var div = document.createElement("div");
+      div.style.position = "absolute";
+      div.style.height = height;
+      div.style.width = width;
+      div.style.overflow = "hidden";
+      div.style.backgroundColor = "transparent";
+      return div;
+    }
+
+  })();
+  </script>
+
+  <!-- ===== Page Script: letter text + interactions ===== -->
+  <script>
+    // Short greeting text & letter content
     let datetxt = "Happy 19th Birthday, Mithu!";
     let datatxtletter = "Dear Mithu,\n\nWishing you the happiest 19th birthday! May this year bring you new adventures, bright opportunities, good health, and countless moments of joy. Keep smiling, keep dreaming, and never stop being the wonderful person you are. We can't wait to celebrate many more birthdays with you. Much love and best wishes on your special day!";
     let titleLetter = "To Mithu";
+
+    // split into characters for typing effect
     let charArrDate = datetxt.split('');
     let charArrDateLetter = datatxtletter.split('');
     let charArrTitle = titleLetter.split('');
     let currentIndex = 0;
     let currentIndexLetter = 0;
     let currentIndexTitle = 0;
+
+    // DOM refs
     let date__of__birth = document.querySelector(".date__of__birth span");
     let text__letter = document.querySelector(".text__letter p");
 
+    // type the heading after small delay
     setTimeout(function(){
-      timeDatetxt = setInterval(function(){
+      let timeDatetxt = setInterval(function(){
         if(currentIndex < charArrDate.length){
           date__of__birth.textContent += charArrDate[currentIndex];
           currentIndex++;
         } else {
+          // add decorative stars when done
           let i = document.createElement("i");
           i.className = "fa-solid fa-star";
           document.querySelector(".date__of__birth").prepend(i);
           document.querySelector(".date__of__birth").appendChild(i.cloneNode(true));
           clearInterval(timeDatetxt);
         }
-      },80)
-    },1200);
+      }, 80);
+    }, 1200);
 
     var intervalContent;
     var intervalTitle;
+
+    // Button opens the letter modal and runs typing/animations
     $("#btn__letter").on("click", function(){
       $(".box__letter").fadeIn(220);
-      setTimeout(function(){
-        $(".letter__border").slideDown(240);
-      },180);
+      setTimeout(function(){ $(".letter__border").slideDown(240); }, 180);
+
+      // animate title letters
       setTimeout(function(){
         intervalTitle = setInterval(function(){
           if(currentIndexTitle < charArrTitle.length){
@@ -288,18 +469,23 @@
           } else {
             clearInterval(intervalTitle);
           }
-        },120);
-      },260);
+        }, 120);
+      }, 260);
+
+      // show heart gifs + animate hearts
       setTimeout(function(){
         document.querySelector("#heart__letter").classList.add("animationOp");
         document.querySelector(".love__img").classList.add("animationOp");
         document.querySelector("#mewmew").classList.add("animationOp");
-      },540);
+      }, 540);
+
       setTimeout(function(){
         document.querySelectorAll(".heart").forEach((item)=>{
           item.classList.add("animation");
-        })
-      },900);
+        });
+      }, 900);
+
+      // type content into the letter area
       setTimeout(function(){
         intervalContent = setInterval(function(){
           if(currentIndexLetter < charArrDateLetter.length){
@@ -308,10 +494,11 @@
           } else {
             clearInterval(intervalContent);
           }
-        },22);
-      },1100);
+        }, 22);
+      }, 1100);
     });
 
+    // Close button cleans up and hides letter
     $(".close").on("click", function(){
       clearInterval(intervalContent);
       document.querySelector(".title__letter").textContent = "";
@@ -327,5 +514,6 @@
       $(".box__letter").fadeOut(180);
       $(".letter__border").slideUp(120);
     });
-  </script></body>
-</html>
+  </script>
+</body>
+  </html>
