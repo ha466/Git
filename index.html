@@ -1,169 +1,331 @@
-<!doctype html>
-
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Happy 19th Birthday, Mithu!</title>
-  <style>
-    /* Reset & basics */
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;background: linear-gradient(135deg,#ffedf5 0%, #fff9f0 40%, #f0f7ff 100%);overflow:hidden}/* Layout */
-.stage{position:relative;width:100%;height:100vh;display:grid;place-items:center;padding:20px}
-.card{width:min(1100px,96%);background:rgba(255,255,255,0.75);backdrop-filter:blur(6px);border-radius:24px;box-shadow:0 12px 40px rgba(24,24,24,0.12);padding:28px;display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:center}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="title" content="Happy 19th Birthday Mithu | From a Friend">
+  <meta name="github" content="https://github.com/ha466">
+  <title>Happy 19th Birthday Mithu!</title>  <!-- Embedded responsive CSS (mobile-first) -->  <style>
+    :root{
+      --bg:#fff6fb;
+      --accent:#ff4d88;
+      --muted:#f7eef4;
+      --text:#333;
+      --max-width:1100px;
+    }
 
-/* Left content */
-.left{padding:10px}
-h1{font-size:44px;line-height:1;color:#2b2b2b}
-h1 .spark{color:#ff4da6}
-p.lead{margin-top:12px;font-size:18px;color:#3b3b3b}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:linear-gradient(180deg,var(--muted),#fff);color:var(--text)}
 
-/* Cake & candles */
-.cake-wrap{display:flex;gap:12px;align-items:center;margin-top:18px}
-.cake{width:220px;height:150px;background:linear-gradient(180deg,#ffd6f0,#ff8fc1);border-radius:20px 20px 12px 12px;position:relative;box-shadow:inset 0 -6px 12px rgba(0,0,0,0.06)}
-.frosting{position:absolute;left:14px;right:14px;top:-12px;height:40px;background:linear-gradient(180deg,#fff,#ffe6f6);border-radius:18px}
-.candles{position:absolute;top:-38px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
-.candle{width:10px;height:36px;background:linear-gradient(#fff,#ffd1e6);border-radius:3px;position:relative}
-.flame{position:absolute;top:-12px;left:50%;transform:translateX(-50%);width:8px;height:12px;border-radius:50%;background:radial-gradient(circle at 40% 30%, #ffd86b 0%, #ff7a00 60%);filter:drop-shadow(0 2px 3px rgba(255,120,0,0.35))}
+    /* Wrapper & grid */
+    #wrapper{max-width:var(--max-width);margin:18px auto;padding:18px;position:relative}
 
-/* Right controls */
-.right{display:flex;flex-direction:column;gap:12px;padding:12px}
-.controls{display:flex;gap:12px}
-button.btn{flex:1;padding:12px 16px;border-radius:12px;border:none;font-weight:600;background:#ff4da6;color:white;cursor:pointer;box-shadow:0 6px 18px rgba(255,77,166,0.28)}
-button.btn.secondary{background:transparent;color:#ff4da6;border:2px solid rgba(255,77,166,0.14);box-shadow:none}
+    .flag__birthday{display:flex;justify-content:space-between;gap:12px}
+    .flag__left,.flag__right{display:block;max-width:30%;height:auto}
 
-/* Message box */
-.message{margin-top:8px;padding:12px;border-radius:12px;background:linear-gradient(180deg,#fff,#fff1);min-height:140px;display:flex;align-items:center;justify-content:center;text-align:center}
-.message textarea{width:100%;height:100%;resize:none;border:none;background:transparent;font-size:18px;padding:8px;outline:none}
+    .content{display:flex;gap:18px;align-items:flex-start}
+    .left{flex:1;min-width:220px}
+    .right{flex:1;min-width:220px}
 
-/* Floating top-left greeting */
-.greeting{position:absolute;left:36px;top:26px;font-weight:700;color:#ff2e7a}
+    /* Title */
+    .title{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+    .happy,.birthday{margin:0;line-height:1}
+    .happy span,.birthday span{display:inline-block;opacity:0;animation:fadeIn 600ms forwards;}
+    @keyframes fadeIn{to{opacity:1;transform:none}}
 
-/* Balloon styles */\    
-.balloon{position:absolute;width:64px;height:88px;border-radius:60% 60% 55% 55%;display:flex;align-items:flex-end;justify-content:center}
-.string{width:2px;height:72px;background:rgba(0,0,0,0.1);position:absolute;bottom:-70px}
+    .hat img{display:block}
 
-/* Footer small */
-.footer{position:absolute;right:22px;bottom:18px;font-size:12px;color:#666}
+    .date__of__birth{margin-top:6px;font-weight:600;color:var(--accent);display:flex;gap:8px;align-items:center}
+    .date__of__birth span{font-size:16px}
 
-/* Responsive */
-@media (max-width:880px){.card{grid-template-columns:1fr;padding:16px}.right{order:2}.left{order:1}.cake{width:180px;height:120px}}
+    .btn{margin-top:12px}
+    #btn__letter{background:var(--accent);color:white;border:0;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
 
-  </style>
-</head>
+    /* Right card */
+    .box__account{background:linear-gradient(180deg,#fff,#ffeef7);border-radius:18px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+    .box__account .image img{width:160px;height:160px;object-fit:cover;border-radius:50%;border:6px solid rgba(255,255,255,0.9)}
+    .name{display:flex;align-items:center;gap:8px;font-weight:700}
+
+    .balloon_one,.balloon_two{position:relative}
+
+    .cricle{margin-top:12px;display:flex;align-items:center;justify-content:center}
+    .text__cricle{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+
+    /* Decorations (minimize on mobile) */
+    .decorate_star,.decorate_flower--one,.decorate_flower--two,.decorate_flower--three,.decorate_bottom,.smiley__icon{position:absolute}
+    .decorate_star{width:8px;height:8px;border-radius:50%;background:var(--accent);opacity:0.15}
+    .decorate_bottom{bottom:10px;left:8px}
+
+    /* Letter modal */
+    .box__letter{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,0.45);z-index:2000}
+    .letter__border{background:linear-gradient(180deg,#fff,#fff4fb);border-radius:14px;padding:12px;max-width:720px;width:100%;box-shadow:0 12px 36px rgba(0,0,0,0.25);}
+    .letter{display:flex;gap:12px}
+    .letter .left{flex:0 0 96px;display:flex;flex-direction:column;align-items:center}
+    .letter .right{flex:1}
+    .title__letter{font-weight:800;font-size:20px;margin-bottom:8px}
+    .text__letter p{white-space:pre-wrap;line-height:1.6}
+    .close{position:absolute;top:10px;right:12px;cursor:pointer;color:#333}
+
+    /* Small-screen adjustments (mobile-first) */
+    @media (max-width:840px){
+      #wrapper{padding:12px;margin:8px}
+      .flag__left,.flag__right{max-width:22%;}
+      .content{flex-direction:column}
+      .left,.right{width:100%}
+      .box__account .image img{width:120px;height:120px}
+      .happy{font-size:36px}
+      .birthday{font-size:22px}
+      .date__of__birth span{font-size:14px}
+      .letter{flex-direction:column}
+      .letter .left{flex:0 0 auto;order:2}
+      .letter .right{order:1}
+      .letter__border{padding:14px}
+
+      /* hide heavy decorations to save layout space */
+      .decorate_star,.decorate_flower--one,.decorate_flower--two,.decorate_flower--three,.decorate_bottom,.smiley__icon{display:none}
+    }
+
+    /* Very small phones */
+    @media (max-width:420px){
+      .happy{font-size:28px}
+      .birthday{font-size:18px}
+      .box__account .image img{width:96px;height:96px}
+      #btn__letter{padding:8px 10px;font-size:14px}
+      .title__letter{font-size:18px}
+    }
+
+    /* Accessibility & small polish */
+    #btn__letter:active,#btn__letter:focus{outline:3px solid rgba(255,77,136,0.18)}
+    .animationOp{opacity:1;transform:none}
+
+  </style>  <!-- keep external libs as before (font-awesome, jQuery) -->  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+6Y6mYh2j8bg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>  <!-- keep the floating heart cursor script (unchanged) -->  <script type="text/javascript">/* original floating-heart script omitted for brevity in canvas version; keep your existing script */</script></head>
 <body>
-  <div class="stage">
-    <div class="greeting">🎉 Happy 19th, <strong>Mithu</strong>!</div><div class="card" id="card">
+  <!-- Keep original HTML structure; styling is now responsive -->  <div id="wrapper">
+    <div class="flag__birthday">
+      <img src="./images/1.png" alt="" width="350" class="flag__left">
+      <img src="./images/1.png" alt="" width="350" class="flag__right">
+    </div><div class="content">
   <div class="left">
-    <h1>To Mithu — 19 years young <span class="spark">✨</span></h1>
-    <p class="lead">Wishing you a day full of laughter, crazy confetti, and tiny moments that become big memories. Press <strong>Play</strong> and enjoy the show!</p>
-
-    <div class="cake-wrap">
-      <div class="cake" id="cake">
-        <div class="frosting"></div>
-        <div class="candles" id="candles">
-          <div class="candle"><div class="flame"></div></div>
-          <div class="candle"><div class="flame"></div></div>
-          <div class="candle"><div class="flame"></div></div>
-          <div class="candle"><div class="flame"></div></div>
-          <div class="candle"><div class="flame"></div></div>
-        </div>
-      </div>
-
-      <div style="flex:1;padding-left:6px">
-        <div style="font-weight:700">Make a wish, Mithu!</div>
-        <div style="margin-top:8px;color:#555">Click the big <strong>PLAY</strong> button to start music, confetti, balloons & fireworks.</div>
+    <div class="title">
+      <h1 class="happy">
+        <span style="--t: 4s;">H</span>
+        <span style="--t: 4.2s;">a</span>
+        <span style="--t: 4.4s;">p</span>
+        <span style="--t: 4.6s;">p</span>
+        <span style="--t: 4.8s;">y</span>
+      </h1>
+      <h1 class="birthday">
+        <span style="--t: 5s;">1</span>
+        <span style="--t: 5.2s;">9</span>
+        <span style="--t: 5.4s;">t</span>
+        <span style="--t: 5.6s;">h</span>
+        <span style="--t: 5.8s;"> </span>
+        <span style="--t: 6s;">B</span>
+        <span style="--t: 6.2s;">i</span>
+        <span style="--t: 6.4s;">r</span>
+        <span style="--t: 6.6s;">t</span>
+        <span style="--t: 6.8s;">h</span>
+        <span style="--t: 7s;">d</span>
+        <span style="--t: 7.2s;">a</span>
+        <span style="--t: 7.4s;">y</span>
+      </h1>
+      <div class="hat">
+        <img src="./images/hat.png" alt="" width="130">
       </div>
     </div>
 
+    <div class="date__of__birth">
+      <span></span>
+    </div>
+
+    <div class="btn">
+      <button id="btn__letter">
+        Open Your Letter 
+        <i class="fa-regular fa-envelope"></i>
+      </button>
+    </div>
   </div>
 
   <div class="right">
-    <div class="controls">
-      <button class="btn" id="playBtn">▶️ Play</button>
-      <button class="btn secondary" id="pauseBtn">⏸ Pause</button>
+    <div class="box__account">
+      <div class="image">
+        <img src="./images/r5.jpg" alt="Mithu's picture">
+      </div>
+      <div class="name">
+        <i class="fa-solid fa-heart"></i>
+        <span>Mithu</span>
+        <i class="fa-solid fa-heart"></i>
+      </div>
+      <div class="balloon_one">
+        <img width="100px" src="./images/balloon1.png" alt="">
+      </div>
+      <div class="balloon_two">
+        <img width="100px" src="./images/balloon2.png" alt="">
+      </div>
     </div>
 
-    <div class="message" id="messageBox">
-      <textarea id="wishText">Happy 19th Birthday, Mithu! Love you lots — may your year be full of adventures, joy, and bright surprises. 💖</textarea>
+    <div class="cricle">
+      <div class="text__cricle">
+        <span style="--i: 1;">h</span>
+        <span style="--i: 2;">a</span>
+        <span style="--i: 3;">p</span>
+        <span style="--i: 4;">p</span>
+        <span style="--i: 5;">y</span>
+        <span style="--i: 6;">-</span>
+        <span style="--i: 7;">1</span>
+        <span style="--i: 8;">9</span>
+        <span style="--i: 9;">t</span>
+        <span style="--i: 10;">h</span>
+        <span style="--i: 11;">-</span>
+        <span style="--i: 12;">M</span>
+        <span style="--i: 13;">i</span>
+        <span style="--i: 14;">t</span>
+        <span style="--i: 15;">h</span>
+        <span style="--i: 16;">u</span>
+        <span style="--i: 17;">-</span>
+      </div>
+      <i class="fa-solid fa-heart"></i>
     </div>
-
-    <div style="display:flex;gap:8px;margin-top:8px">
-      <button class="btn secondary" id="shareBtn">💌 Copy Wish</button>
-      <button class="btn secondary" id="downloadBtn">⬇️ Download Card</button>
-    </div>
-
   </div>
 </div>
 
-<canvas id="fxCanvas" style="position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none"></canvas>
-<canvas id="confettiCanvas" style="position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none"></canvas>
+<div class="decorate_star star1" style="--t: 15s;"></div>
+<div class="decorate_star star2" style="--t: 15.2s;"></div>
+<div class="decorate_star star3" style="--t: 15.4s;"></div>
+<div class="decorate_star star4" style="--t: 15.6s;"></div>
+<div class="decorate_star star5" style="--t: 15.8s;"></div>
 
-<div class="footer">Made with ✨ for Mithu — age 19</div>
+<div class="decorate_flower--one" style="--t: 15s;">
+  <img width="20" src="./images/decorate_flower.png" alt="">
+</div>
+<div class="decorate_flower--two" style="--t: 15.3s;">
+  <img width="20" src="./images/decorate_flower.png" alt="">
+</div>
+<div class="decorate_flower--three" style="--t: 15.6s;">
+  <img width="20" src="./images/decorate_flower.png" alt="">
+</div>
 
-  </div>  <script>
-    /* Utility: resize canvases to window pixel ratio */
-    function fitCanvas(canvas){const dpr=window.devicePixelRatio||1;canvas.width=window.innerWidth*dpr;canvas.height=window.innerHeight*dpr;canvas.style.width=window.innerWidth+'px';canvas.style.height=window.innerHeight+'px';const ctx=canvas.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);return ctx}
+<div class="decorate_bottom">
+  <img src="./images/decorate.png" alt="" width="100">
+</div>
+<div class="smiley__icon">
+  <img src="./images/smiley_icon.png" alt="" width="100">
+</div>
 
-    const fxCanvas=document.getElementById('fxCanvas');
-    const confettiCanvas=document.getElementById('confettiCanvas');
-    let fxCtx=fitCanvas(fxCanvas), confCtx=fitCanvas(confettiCanvas);
-    window.addEventListener('resize',()=>{fxCtx=fitCanvas(fxCanvas);confCtx=fitCanvas(confettiCanvas)})
+<!-- Letter Box -->
+<div class="box__letter">
+  <div class="letter__border">
+    <div class="letter">
+      <div class="title__letter"></div>
+      <div class="content__letter">
+        <div class="left">
+          <img id="heart__letter" src="https://media0.giphy.com/media/c76IJLufpNwSULPk77/giphy.gif" alt="">
+          <img class="heart heart_1" style="--t: 0.2s" width="20" src="./images/heart.png" alt="">
+          <img class="heart heart_2" style="--t: 0.4s" width="20" src="./images/heart.png" alt="">
+          <img class="heart heart_3" style="--t: 0.6s" width="20" src="./images/heart.png" alt="">
+          <img class="heart heart_4" style="--t: 0.8s" width="20" src="./images/heart.png" alt="">
+        </div>
+        <div class="right">
+          <div class="love__img">
+            <img src="https://media4.giphy.com/media/W4jyjmIpnw6e38B6Qc/giphy.gif" alt="" width="220">
+          </div>
+          <div class="text__letter">
+            <p></p>
+          </div>
+          <img id="mewmew" width="80" src="./images/mewmew.gif" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="close">
+      <i class="fa-solid fa-xmark"></i>
+    </div>
+  </div>
+</div>
 
-    /* Simple confetti system */
-    const confettiPieces=[];
-    function spawnConfetti(count=80){for(let i=0;i<count;i++){confettiPieces.push({x:Math.random()*innerWidth,y:-20,vy:2+Math.random()*4,ax:Math.random()*0.04-0.02,size:6+Math.random()*10,rot:Math.random()*360,vr:Math.random()*6-3,color: ['#ff4da6','#ffd86b','#8ad9ff','#c6a4ff'][Math.floor(Math.random()*4)]})}}
-    function updateConfetti(){confCtx.clearRect(0,0,innerWidth,innerHeight);for(let i=confettiPieces.length-1;i>=0;i--){const p=confettiPieces[i];p.vy+=0.06;p.x+=p.ax*5;p.y+=p.vy;p.rot+=p.vr;confCtx.save();confCtx.translate(p.x,p.y);confCtx.rotate(p.rot*Math.PI/180);confCtx.fillStyle=p.color;confCtx.fillRect(-p.size/2,-p.size/2,p.size,p.size);confCtx.restore();if(p.y>innerHeight+40)confettiPieces.splice(i,1)}}
+  </div>  <!-- personalized script (unchanged) -->  <script>
+    let datetxt = "Happy 19th Birthday, Mithu!";
+    let datatxtletter = "Dear Mithu,\n\nWishing you the happiest 19th birthday! May this year bring you new adventures, bright opportunities, good health, and countless moments of joy. Keep smiling, keep dreaming, and never stop being the wonderful person you are. We can't wait to celebrate many more birthdays with you. Much love and best wishes on your special day!";
+    let titleLetter = "To Mithu";
+    let charArrDate = datetxt.split('');
+    let charArrDateLetter = datatxtletter.split('');
+    let charArrTitle = titleLetter.split('');
+    let currentIndex = 0;
+    let currentIndexLetter = 0;
+    let currentIndexTitle = 0;
+    let date__of__birth = document.querySelector(".date__of__birth span");
+    let text__letter = document.querySelector(".text__letter p");
 
-    /* Fireworks */
-    const fireworks=[];
-    function launchFirework(x,y){const particles=[];const count=28+Math.floor(Math.random()*18);for(let i=0;i<count;i++){const ang=Math.random()*Math.PI*2;const speed=1.8+Math.random()*4;particles.push({x,y,vx:Math.cos(ang)*speed,vy:Math.sin(ang)*speed,life:60+Math.random()*40,age:0,color:`hsl(${Math.floor(Math.random()*360)},80%,60%)`})}fireworks.push({particles})}
-    function updateFireworks(){fxCtx.clearRect(0,0,innerWidth,innerHeight);for(let i=fireworks.length-1;i>=0;i--){const fw=fireworks[i];for(let j=fw.particles.length-1;j>=0;j--){const p=fw.particles[j];p.vy+=0.03;p.x+=p.vx;p.y+=p.vy;p.age++;const alpha=1-p.age/p.life;fxCtx.beginPath();fxCtx.globalAlpha=alpha;fxCtx.fillStyle=p.color;fxCtx.arc(p.x,p.y,2.6,0,Math.PI*2);fxCtx.fill();if(p.age>p.life)fw.particles.splice(j,1)}if(fw.particles.length===0)fireworks.splice(i,1)}fxCtx.globalAlpha=1}
+    setTimeout(function(){
+      timeDatetxt = setInterval(function(){
+        if(currentIndex < charArrDate.length){
+          date__of__birth.textContent += charArrDate[currentIndex];
+          currentIndex++;
+        } else {
+          let i = document.createElement("i");
+          i.className = "fa-solid fa-star";
+          document.querySelector(".date__of__birth").prepend(i);
+          document.querySelector(".date__of__birth").appendChild(i.cloneNode(true));
+          clearInterval(timeDatetxt);
+        }
+      },80)
+    },1200);
 
-    /* Balloons (DOM) */
-    const colors=['#ff7ab6','#ffdf7a','#7ad6ff','#caa4ff'];
-    function spawnBalloon(){const b=document.createElement('div');b.className='balloon';const c=colors[Math.floor(Math.random()*colors.length)];b.style.background=c;const left=Math.random()*80;const scale=0.9+Math.random()*0.8;b.style.left=left+'%';b.style.bottom='-140px';b.style.transform=`scale(${scale})`;
-      const s=document.createElement('div');s.className='string';b.appendChild(s);document.body.appendChild(b);
-      // animate upwards
-      const dur=8000+Math.random()*7000;const start=performance.now();function frame(t){const p=(t-start)/dur;if(p>=1){b.remove();return}b.style.bottom=(-140 + p*(innerHeight+200))+'px';requestAnimationFrame(frame)}requestAnimationFrame(frame)}
-
-    /* Candle flicker */
-    function flickerCandles(){const flames=document.querySelectorAll('.flame');flames.forEach(f=>{const s=0.8+Math.random()*0.4;f.style.transform=`translateX(-50%) scale(${s})`;f.style.opacity=0.85+Math.random()*0.25});setTimeout(flickerCandles,120)}
-    flickerCandles();
-
-    /* Audio: simple melody via Web Audio API */
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    let audioCtx=null;let masterGain=null;let musicOsc=null;let isPlaying=false;let melodyInterval=null;
-
-    function startMusic(){if(!AudioCtx) return;audioCtx=new AudioCtx();masterGain=audioCtx.createGain();masterGain.gain.value=0.18;masterGain.connect(audioCtx.destination);
-      const notes=[523.25,659.25,783.99,1046.5,783.99,659.25];let idx=0;musicOsc=audioCtx.createOscillator();musicOsc.type='sine';musicOsc.frequency.value=notes[0];musicOsc.connect(masterGain);musicOsc.start();melodyInterval=setInterval(()=>{musicOsc.frequency.setValueAtTime(notes[idx%notes.length],audioCtx.currentTime);idx++;},300);}
-    function stopMusic(){if(melodyInterval)clearInterval(melodyInterval);if(musicOsc){musicOsc.stop();try{musicOsc.disconnect()}catch(e){}musicOsc=null}if(masterGain){try{masterGain.disconnect()}catch(e){}masterGain=null}if(audioCtx){try{audioCtx.close()}catch(e){}audioCtx=null}}
-
-    /* Play / Pause controls */
-    const playBtn=document.getElementById('playBtn');const pauseBtn=document.getElementById('pauseBtn');
-    playBtn.addEventListener('click',()=>{if(isPlaying) return;isPlaying=true;startMusic();spawnConfetti(130);for(let i=0;i<8;i++){setTimeout(()=>spawnBalloon(),i*600)}let fireCount=0;const fireSeq=setInterval(()=>{launchFirework(Math.random()*innerWidth,100+Math.random()*200);fireCount++;if(fireCount>8){clearInterval(fireSeq)}} ,450)});
-    pauseBtn.addEventListener('click',()=>{isPlaying=false;stopMusic();confettiPieces.length=0;fireworks.length=0;const balloons=document.querySelectorAll('.balloon');balloons.forEach(b=>b.remove());confCtx.clearRect(0,0,innerWidth,innerHeight);fxCtx.clearRect(0,0,innerWidth,innerHeight)})
-
-    /* Animation loop */
-    function loop(){updateConfetti();updateFireworks();requestAnimationFrame(loop)}loop();
-
-    /* Make copying & downloading work */
-    document.getElementById('shareBtn').addEventListener('click',()=>{const text=document.getElementById('wishText').value;navigator.clipboard?.writeText(text).then(()=>{alert('Wish copied to clipboard!')}).catch(()=>{prompt('Copy this message:',text)})})
-
-    document.getElementById('downloadBtn').addEventListener('click',()=>{const canvas=document.createElement('canvas');canvas.width=1200;canvas.height=630;const ctx=canvas.getContext('2d');
-      // background
-      const grad=ctx.createLinearGradient(0,0,canvas.width,canvas.height);grad.addColorStop(0,'#ffedf5');grad.addColorStop(1,'#f0f7ff');ctx.fillStyle=grad;ctx.fillRect(0,0,canvas.width,canvas.height);
-      // text
-      ctx.fillStyle='#2b2b2b';ctx.font='48px serif';ctx.fillText('Happy 19th Birthday, Mithu!',60,140);
-      ctx.font='28px serif';const message=document.getElementById('wishText').value;wrapText(ctx,message,60,200,1080,34);
-      const link=document.createElement('a');link.download='Mithu-19-birthday-card.png';link.href=canvas.toDataURL('image/png');link.click();
+    var intervalContent;
+    var intervalTitle;
+    $("#btn__letter").on("click", function(){
+      $(".box__letter").fadeIn(220);
+      setTimeout(function(){
+        $(".letter__border").slideDown(240);
+      },180);
+      setTimeout(function(){
+        intervalTitle = setInterval(function(){
+          if(currentIndexTitle < charArrTitle.length){
+            document.querySelector(".title__letter").textContent += charArrTitle[currentIndexTitle];
+            let i = document.createElement("i");
+            i.className = "fa-solid fa-heart";
+            document.querySelector(".title__letter").appendChild(i);
+            currentIndexTitle++;
+          } else {
+            clearInterval(intervalTitle);
+          }
+        },120);
+      },260);
+      setTimeout(function(){
+        document.querySelector("#heart__letter").classList.add("animationOp");
+        document.querySelector(".love__img").classList.add("animationOp");
+        document.querySelector("#mewmew").classList.add("animationOp");
+      },540);
+      setTimeout(function(){
+        document.querySelectorAll(".heart").forEach((item)=>{
+          item.classList.add("animation");
+        })
+      },900);
+      setTimeout(function(){
+        intervalContent = setInterval(function(){
+          if(currentIndexLetter < charArrDateLetter.length){
+            text__letter.textContent += charArrDateLetter[currentIndexLetter];
+            currentIndexLetter++;
+          } else {
+            clearInterval(intervalContent);
+          }
+        },22);
+      },1100);
     });
 
-    function wrapText(ctx,text,x,y,maxWidth,lineHeight){const words=text.split(' ');let line='';for(let n=0;n<words.length;n++){const testLine=line+words[n]+' ';const metrics=ctx.measureText(testLine);if(metrics.width>maxWidth && n>0){ctx.fillText(line,x,y);line=words[n]+' ';y+=lineHeight;}else{line=testLine;}}ctx.fillText(line,x,y);} 
-
-    /* Small helpful hint: auto-play blocked on some browsers — user must interact. */
-
-    // small celebratory auto-spark on load (non-intrusive)
-    setTimeout(()=>{spawnConfetti(22);for(let i=0;i<2;i++)setTimeout(()=>spawnBalloon(),i*350)},900);
+    $(".close").on("click", function(){
+      clearInterval(intervalContent);
+      document.querySelector(".title__letter").textContent = "";
+      text__letter.textContent = "";
+      currentIndexLetter = 0;
+      currentIndexTitle = 0;
+      document.querySelector("#heart__letter").classList.remove("animationOp");
+      document.querySelector(".love__img").classList.remove("animationOp");
+      document.querySelector("#mewmew").classList.remove("animationOp");
+      document.querySelectorAll(".heart").forEach((item)=>{
+        item.classList.remove("animation");
+      });
+      $(".box__letter").fadeOut(180);
+      $(".letter__border").slideUp(120);
+    });
   </script></body>
 </html>
