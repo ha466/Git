@@ -3,695 +3,361 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy 19th Birthday, Mithu!</title>
-    <!-- 1. Tailwind CSS -->
+    <title>Lab Report Generator</title>
+    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 2. Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <!-- 3. Tone.js for music -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
-
     <style>
-        /* 4. Custom CSS */
-        body {
-            font-family: 'Inter', sans-serif;
-            overflow: hidden; 
-        }
-        .cursive {
-            font-family: 'Great+Vibes', cursive;
-        }
-
-        /* --- Heart Cursor Effect --- */
-        .heart {
-            position: absolute;
-            pointer-events: none;
-            opacity: 0;
-            animation: fadeAndFloat 1.2s linear forwards;
-            z-index: 9999;
-        }
-        .heart::before, .heart::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 12px;
-            height: 20px;
-            background-color: #f472b6; /* pink-400 */
-            border-radius: 10px 10px 0 0;
-            transform: rotate(-45deg);
-            transform-origin: 0 100%;
-        }
-        .heart::after {
-            left: 0;
-            transform: rotate(45deg);
-            transform-origin: 100% 100%;
-        }
-        @keyframes fadeAndFloat {
-            0% { opacity: 1; transform: translateY(0) scale(0.5); }
-            100% { opacity: 0; transform: translateY(-80px) scale(1.2); }
-        }
-
-        /* --- Page Load Animations --- */
-        .load-animate {
-            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        /* State for animations */
-        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .scale-in { animation: scaleIn 0.8s ease-out forwards; }
-
-        /* --- NEW: Lovely Stuff Animations --- */
-        @keyframes gentlePulse {
-            0%, 100% { 
-                transform: scale(1); 
-                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        /* Custom styles for printing */
+        @media print {
+            /* Hide everything except the report preview */
+            body > * {
+                display: none;
             }
-            50% { 
-                transform: scale(1.03); 
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            #report-preview-container, #report-preview-container * {
+                display: block;
+                visibility: visible;
+            }
+            #report-preview-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                border: none;
+                box-shadow: none;
+            }
+            /* Hide the "Print Report" button itself when printing */
+            #print-button {
+                display: none;
             }
         }
-        .pulse-animate {
-            /* This animation is applied via JS after the intro */
-            animation: gentlePulse 3s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        /* Style for dynamically added test rows */
+        .test-row {
+            display: grid;
+            grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr 0.5fr;
+            gap: 0.5rem;
+            align-items: center;
+            margin-bottom: 0.5rem;
         }
-
-        @keyframes gentleWiggle {
-            0% { transform: rotate(0); }
-            25% { transform: rotate(-3deg); }
-            50% { transform: rotate(0); }
-            75% { transform: rotate(3deg); }
-            100% { transform: rotate(0); }
-        }
-        .wiggle-animate {
-             /* This animation is applied via JS after the intro */
-            animation: gentleWiggle 1.5s infinite;
-        }
-
-        /* --- Modal Styling --- */
-        .modal-overlay {
-            position: fixed; inset: 0;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.3s ease-in-out;
-            pointer-events: none; z-index: 50;
-        }
-        .modal-overlay.show { opacity: 1; pointer-events: auto; }
-        .modal-content {
-            background-color: #fff; padding: 2.5rem; border-radius: 1.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            width: 90%; max-width: 500px; max-height: 90vh;
-            overflow-y: auto; position: relative;
-            transform: scale(0.9); transition: transform 0.3s ease-in-out;
-        }
-        .modal-overlay.show .modal-content { transform: scale(1); }
-
-        /* Gift card styling */
-        .gift-card {
-            background-color: #fff; border-radius: 1rem; padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: all 0.2s ease-in-out; cursor: pointer;
-        }
-        .gift-card:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .gift-card-icon {
-            width: 48px; height: 48px;
-            margin: 0 auto 1rem; stroke: #db2777; /* pink-600 */
-        }
-
-        /* --- Scratch-off Canvas Styling --- */
-        #wishTextContainer {
-            position: relative;
-            user-select: none; /* Prevent text selection underneath */
-        }
-        #scratchCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: transparent; /* Canvas itself is clear */
-            cursor: cell; /* Fun "scratching" cursor */
-            z-index: 10;
-        }
-
-        /* --- Typewriter Cursor --- */
-        .typewriter-text p {
-            min-height: 1.5rem; 
-        }
-        .typewriter-text p.typing::after {
-            content: '|';
-            animation: blink 1s step-end infinite;
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
-        /* --- Confetti --- */
-        .confetti-piece {
-            position: absolute;
-            width: 8px;
-            height: 16px;
-            background: #f472b6; /* pink */
-            top: 50%;
-            left: 50%;
-            opacity: 0;
-            animation: fallAndFade 3s linear forwards;
-            z-index: 10000;
-        }
-        @keyframes fallAndFade {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) rotateZ(0deg);
+        @media (max-width: 768px) {
+            .test-row {
+                grid-template-columns: 1fr 1fr;
             }
-            100% {
-                opacity: 0;
-                transform: translate(var(--x-end), 80vh) rotateZ(720deg);
+            /* Hide labels on mobile for a cleaner look */
+            .test-row-labels {
+                display: none;
             }
         }
     </style>
+    <!-- Use Inter font family -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                },
+            }
+        }
+    </script>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden relative">
+<body class="bg-gray-100 font-sans">
 
-    <!-- Faded Background Image -->
-    <div class="fixed inset-0 z-[-10]">
-        <img 
-            src="https://ha466.github.io/Git/Images/PXL_20251112_043336499.PORTRAIT.jpg" 
-            alt="Background" 
-            class="w-full h-full object-cover"
-            onerror="this.src='https://placehold.co/1920x1080/fbcfe8/fbcfe8?text=%20'" 
-        >
-        <div class="absolute inset-0 bg-pink-100 opacity-90"></div>
-    </div>
+    <div class="container mx-auto p-4 lg:p-8">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Lab Report Generator</h1>
 
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-    <!-- Music Toggle Button -->
-    <button id="musicToggle" class="absolute top-4 right-4 text-pink-600 bg-white p-3 rounded-full shadow-md transition transform hover:scale-110 z-30">
-        <svg id="playIcon" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-        <svg id="pauseIcon" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-    </button>
+            <!-- ====== INPUT FORM ====== -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-6 border-b pb-3">1. Enter Report Data</h2>
+                
+                <!-- Patient Details -->
+                <fieldset class="mb-6">
+                    <legend class="text-xl font-medium text-gray-600 mb-4">Patient Details</legend>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="patient-name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <input type="text" id="patient-name" value="Mrs. Revathi" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="report-date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                            <input type="text" id="report-date" value="16.11.2025" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="patient-age-sex" class="block text-sm font-medium text-gray-700 mb-1">Age / Sex</label>
+                            <input type="text" id="patient-age-sex" value="37 / F" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="report-note" class="block text-sm font-medium text-gray-700 mb-1">Note (Optional)</label>
+                            <input type="text" id="report-note" value="Issue From a Free Medical Camp" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                </fieldset>
 
-    <!-- Main Content -->
-    <div id="mainContent" class="text-center z-10">
-        <!-- 
-          UPDATED: Removed pulse-animate class. 
-          It will be added by JavaScript after the intro. 
-        -->
-        <img 
-            id="mainImage"
-            src="https://ha466.github.io/Git/Images/PXL_20251112_043336499.PORTRAIT.jpg" 
-            alt="Mithu" 
-            class="w-48 h-48 rounded-full object-cover border-4 border-white shadow-xl mx-auto mb-6 opacity-0 load-animate"
-            onerror="this.src='https://placehold.co/192x192/fbcfe8/9d174d?text=Mithu'"
-        >
+                <!-- Test Results -->
+                <fieldset>
+                    <legend class="text-xl font-medium text-gray-600 mb-4">Test Results</legend>
+                    
+                    <!-- Labels for test rows (hidden on mobile) -->
+                    <div class="test-row test-row-labels mb-2">
+                        <label class="block text-sm font-medium text-gray-500">Category</label>
+                        <label class="block text-sm font-medium text-gray-500">Test</label>
+                        <label class="block text-sm font-medium text-gray-500">Result</label>
+                        <label class="block text-sm font-medium text-gray-500">Units</label>
+                        <label class="block text-sm font-medium text-gray-500">Reference</label>
+                        <span></span> <!-- Spacer for delete button -->
+                    </div>
 
-        <h1 id="mainTitle" class="cursive text-7xl md:text-8xl text-pink-600 mb-2 opacity-0 load-animate" style="text-shadow: 2px 2px 4px rgba(255,255,255,0.7);">
-            Happy 19th Birthday, Mithu!
-        </h1>
-        
-        <!-- UPDATED: New text and heart icon -->
-        <p id="mainSubtitle" class="text-lg text-pink-700 mb-8 opacity-0 load-animate flex items-center justify-center gap-2">
-            A special day for a special person...
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-500" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
-            </svg>
-        </p>
+                    <!-- Container for dynamic test rows -->
+                    <div id="test-rows-container">
+                        <!-- Rows will be added here by JS -->
+                    </div>
 
-        <div id="mainButtonContainer" class="opacity-0 load-animate">
-            <!-- 
-              UPDATED: Removed wiggle-animate class. 
-              It will be added by JavaScript.
-            -->
-            <button id="openGiftsButton" class="bg-white p-5 rounded-lg shadow-xl transition transform hover:scale-105 hover:shadow-2xl focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/>
-                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
-                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
-                </svg>
-            </button>
-            <p class="mt-2 text-pink-600 font-semibold">Click to open your gifts</p>
-        </div>
-    </div>
-
-    <!-- 1. The "Gift Box" Modal -->
-    <div id="giftsModal" class="modal-overlay">
-        <div class="modal-content w-full max-w-2xl">
-            <button class="modal-close-btn absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-            <h2 class="cursive text-5xl text-pink-600 mb-8 text-center">
-                Choose a Gift...
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Gift 1: The Letter -->
-                <div id="openLetterGift" class="gift-card">
-                    <svg class="gift-card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    <h3 class="text-xl font-semibold text-pink-700">A Heartfelt Letter</h3>
-                    <p class="text-sm text-gray-500">Just for you</p>
-                </div>
-                <!-- Gift 2: A Wish -->
-                <div id="openWishGift" class="gift-card">
-                    <svg class="gift-card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    <h3 class="text-xl font-semibold text-pink-700">A Birthday Wish</h3>
-                    <p class="text-sm text-gray-500">Scratch to reveal</p>
-                </div>
-                <!-- Gift 3: A Promise -->
-                <div id="openPromiseGift" class="gift-card">
-                    <svg class="gift-card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                    <h3 class="text-xl font-semibold text-pink-700">A Little Promise</h3>
-                    <p class="text-sm text-gray-500">A voucher from me</p>
+                    <button id="add-test-button" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        + Add Test
+                    </button>
+                </fieldset>
+                
+                <!-- Action Buttons -->
+                <div class="mt-8 pt-6 border-t flex gap-4">
+                    <button id="generate-report-button" class="flex-1 px-6 py-3 bg-green-600 text-white font-semibold rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        Generate Report
+                    </button>
+                    <button id="clear-form-button" class="flex-1 px-6 py-3 bg-gray-600 text-white font-semibold rounded-md shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        Clear Form
+                    </button>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <!-- 2. The Letter Modal -->
-    <div id="letterModal" class="modal-overlay" style="z-index: 60;">
-        <div class="modal-content">
-            <button class="modal-close-btn absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition z-20">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-            <h2 class="cursive text-5xl text-pink-600 mb-6">To my dearest Mithu,</h2>
-            <div class="typewriter-text space-y-4 text-gray-700 text-base md:text-lg">
-                <p data-text="Happy 19th Birthday!"></p>
-                <p data-text="It's such a special day, and I hope it’s filled with all the love, laughter, and joy you deserve. It feels like just yesterday we were celebrating your 18th, and now you're stepping into another beautiful year of your life."></p>
-                <p data-text="I wanted to take a moment to tell you how incredibly special you are. You have a way of lighting up every room you enter and bringing so much happiness to the people around you. Your kindness, your laugh, and your beautiful heart are just a few of the million things that make you, you."></p>
-                <p data-text="As you celebrate 19, I wish for all your dreams to take flight. May this year be packed with amazing new adventures, wonderful memories, and countless moments that make you smile."></p>
-                <p data-text="Never forget how amazing you are. Keep shining, Mithu."></p>
-                <p data-text="With all my love," class="cursive text-4xl text-right text-pink-500 mt-8 pt-4"></p>
-            </div>
-            <button id="skipTypewriter" class="absolute bottom-6 left-6 text-xs text-gray-400 hover:text-gray-600 transition">
-                » Skip
-            </button>
-        </div>
-    </div>
 
-    <!-- 3. The "Wish" Modal -->
-    <div id="wishModal" class="modal-overlay" style="z-index: 60;">
-        <div class="modal-content">
-            <button class="modal-close-btn absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition z-20">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-            <h2 class="cursive text-5xl text-pink-600 mb-6 text-center">A Birthday Wish...</h2>
-            <div id="wishTextContainer" class="relative">
-                <canvas id="scratchCanvas"></canvas>
-                <div class="space-y-4 text-gray-700 text-base md:text-lg italic text-center p-4">
-                    <p>"May your 19th year be a new adventure,</p>
-                    <p>Filled with moments, bright and clear.</p>
-                    <p>May you find joy in little things,</p>
-                    <p>And chase your dreams, and spread your wings.</p>
-                    <p>May it be everything you're hoping for,</p>
-                    <p>And so, so much more."</p>
+            <!-- ====== REPORT PREVIEW ====== -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-6 border-b pb-3">2. Report Preview</h2>
+                
+                <div id="report-preview-container" class="border border-gray-300 rounded-lg p-4 md:p-8 min-h-[600px]">
+                    <!-- Report content will be injected here -->
+                    <div id="report-content" class="text-gray-600">
+                        Click "Generate Report" to see the preview.
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 4. The "Promise" Modal -->
-    <div id="promiseModal" class="modal-overlay" style="z-index: 60;">
-        <div class="modal-content">
-            <button class="modal-close-btn absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-            <h2 class="cursive text-5xl text-pink-600 mb-6">A Little Promise</h2>
-            <div class="space-y-4 text-gray-700 text-base md:text-lg">
-                <div class="border-4 border-dashed border-pink-300 rounded-lg p-6 text-center">
-                    <h3 class="text-2xl font-bold text-pink-700 mb-2">Birthday Voucher</h3>
-                    <p class="text-lg">This coupon is good for:</p>
-                    <p class="text-3xl font-semibold text-pink-600 my-4">
-                        One Unforgettable Day Out!
-                    </p>
-                    <p class="text-gray-600">(Movie, dinner, ice cream... your choice!)</p>
-                    <p class="text-sm text-gray-500 mt-6">Redeemable: Anytime you need a smile.<br>Expires: Never!</p>
-                </div>
+                <!-- Print button (only visible after generation) -->
+                <button id="print-button" class="mt-6 w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 hidden">
+                    Print Report
+                </button>
             </div>
+
         </div>
     </div>
 
     <script>
-        // --- 5. All JavaScript Logic ---
-
         document.addEventListener('DOMContentLoaded', () => {
+            const addTestButton = document.getElementById('add-test-button');
+            const testRowsContainer = document.getElementById('test-rows-container');
+            const generateReportButton = document.getElementById('generate-report-button');
+            const clearFormButton = document.getElementById('clear-form-button');
+            const printButton = document.getElementById('print-button');
+            const reportContent = document.getElementById('report-content');
 
-            // NEW: Flag to prevent auto-reopening the modal
-            let hasModalBeenOpened = false;
-            let autoOpenTimer; // To store the timer
-
-            // --- Page Load Animations ---
-            (function () {
-                const image = document.getElementById('mainImage');
-                const title = document.getElementById('mainTitle');
-                const subtitle = document.getElementById('mainSubtitle');
-                const buttonContainer = document.getElementById('mainButtonContainer');
-                const giftButton = document.getElementById('openGiftsButton');
-
-                setTimeout(() => {
-                    image.classList.add('scale-in');
-                    image.classList.remove('opacity-0');
-                }, 200);
-                setTimeout(() => {
-                    title.classList.add('fade-in-up');
-                    title.classList.remove('opacity-0');
-                }, 400);
-                setTimeout(() => {
-                    subtitle.classList.add('fade-in-up');
-                    subtitle.classList.remove('opacity-0');
-                }, 600);
-                setTimeout(() => {
-                    buttonContainer.classList.add('fade-in-up');
-                    buttonContainer.classList.remove('opacity-0');
-                }, 800);
-
-                // --- NEW: Add lovely animations after intro ---
-                // Add pulse to image after it scales in (200ms + 800ms anim)
-                setTimeout(() => {
-                    image.classList.add('pulse-animate');
-                }, 1000); 
-
-                // Add wiggle to button after it fades in (800ms + 800ms anim)
-                setTimeout(() => {
-                    giftButton.classList.add('wiggle-animate');
-                }, 1600);
-            })();
-
-
-            
-            // --- Modal Control ---
-            const modals = {
-                gifts: document.getElementById('giftsModal'),
-                letter: document.getElementById('letterModal'),
-                wish: document.getElementById('wishModal'),
-                promise: document.getElementById('promiseModal')
-            };
-            
-            let isTypewriterActive = false;
-            let typewriterTimer;
-            let isScratchCardSetup = false;
-
-            function toggleModal(modalId, show) {
-                const modal = modals[modalId];
-                if (modal) {
-                    // NEW: Set flag if gifts modal is opened or closed
-                    if (modalId === 'gifts') {
-                        hasModalBeenOpened = true;
-                    }
-
-                    if (show) {
-                        modal.classList.add('show');
-                        if (modalId === 'letter') {
-                            startTypewriter();
-                        }
-                        if (modalId === 'wish') {
-                            setTimeout(setupScratchCard, 100); 
-                        }
-                    } else {
-                        modal.classList.remove('show');
-                        if (modalId === 'letter') {
-                            resetTypewriter();
-                        }
-                        if (modalId === 'wish') {
-                            isScratchCardSetup = false;
-                        }
-                    }
-                }
-            }
-            
-            // --- NEW: Auto-open Gifts Modal ---
-            // Wait for intro animations (last one starts at 800ms) + 3 seconds
-            autoOpenTimer = setTimeout(() => {
-                if (!hasModalBeenOpened) { // Only open if user hasn't interacted
-                    toggleModal('gifts', true);
-                }
-            }, 3800); // 800ms + 3000ms
-
-            // UPDATED: Click listener now cancels the timer
-            document.getElementById('openGiftsButton').addEventListener('click', () => {
-                clearTimeout(autoOpenTimer); // Cancel auto-open
-                toggleModal('gifts', true);
-            });
-
-            // --- Gift Selection Logic ---
-            document.getElementById('openLetterGift').addEventListener('click', () => {
-                toggleModal('gifts', false);
-                setTimeout(() => toggleModal('letter', true), 300);
-            });
-
-            document.getElementById('openWishGift').addEventListener('click', () => {
-                toggleModal('gifts', false);
-                setTimeout(() => toggleModal('wish', true), 300);
-            });
-
-            document.getElementById('openPromiseGift').addEventListener('click', () => {
-                toggleModal('gifts', false);
-                setTimeout(() => toggleModal('promise', true), 300);
-            });
-
-            // Close listeners
-            document.querySelectorAll('.modal-close-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    toggleModal('gifts', false);
-                    toggleModal('letter', false);
-                    toggleModal('wish', false);
-                    toggleModal('promise', false);
-                });
-            });
-            
-            document.querySelectorAll('.modal-overlay').forEach(overlay => {
-                overlay.addEventListener('click', (event) => {
-                    if (event.target === overlay) {
-                        toggleModal('gifts', false);
-                        toggleModal('letter', false);
-                        toggleModal('wish', false);
-                        toggleModal('promise', false);
-                    }
-                });
-            });
-
-            // --- Heart Cursor Effect ---
-            function createHeart(x, y) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                const xOffset = (Math.random() - 0.5) * 20;
-                const yOffset = (Math.random() - 0.5) * 20;
-                heart.style.left = `${x + xOffset}px`;
-                heart.style.top = `${y + yOffset}px`;
-                const scale = Math.random() * 0.5 + 0.5;
-                const rotation = (Math.random() - 0.5) * 40;
-                heart.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 1200);
-            }
-            document.addEventListener('mousemove', (e) => createHeart(e.clientX, e.clientY));
-            document.addEventListener('touchmove', (e) => {
-                if (e.touches.length > 0) {
-                    createHeart(e.touches[0].clientX, e.touches[0].clientY);
-                }
-            });
-
-            // --- Tone.js Music Logic ---
-            const musicToggle = document.getElementById('musicToggle');
-            const playIcon = document.getElementById('playIcon');
-            const pauseIcon = document.getElementById('pauseIcon');
-            
-            const synth = new Tone.Synth({
-                oscillator: { type: "sine" },
-                envelope: { attack: 0.005, decay: 0.1, sustain: 0.3, release: 1 }
-            }).toDestination();
-            const reverb = new Tone.Reverb(1.5).toDestination();
-            synth.connect(reverb);
-            
-            const happyBirthdayMelody = [
-                { time: "0:0", note: "C4", duration: "8n" }, { time: "0:0:2", note: "C4", duration: "8n" },
-                { time: "0:1", note: "D4", duration: "4n" }, { time: "0:2", note: "C4", duration: "4n" },
-                { time: "0:3", note: "F4", duration: "4n" }, { time: "1:0", note: "E4", duration: "2n" },
-                { time: "1:2", note: "C4", duration: "8n" }, { time: "1:2:2", note: "C4", duration: "8n" },
-                { time: "1:3", note: "D4", duration: "4n" }, { time: "2:0", note: "C4", duration: "4n" },
-                { time: "2:1", note: "G4", duration: "4n" }, { time: "2:2", note: "F4", duration: "2n" },
+            // --- Pre-populate with example data ---
+            const initialData = [
+                { category: 'Hematology', test: 'Group', result: '"AB"', units: '', range: '' },
+                { category: 'Hematology', test: 'Rh', result: 'Positive', units: '', range: '' },
+                { category: 'Hematology', test: 'Haemoglobin', result: '10.1', units: 'gms', range: '[ 11 - 13 ]' },
+                { category: 'Biochemistry', test: 'Sugar ( F )', result: '180', units: 'mg/dl', range: '[ 60 - 110 ]' },
+                { category: 'Biochemistry', test: 'Sugar ( PP )', result: '287', units: 'mg/dl', range: '[ 60 - 160 ]' },
+                { category: 'Biochemistry', test: 'Creatinine', result: '0.6', units: 'mg/dl', range: '[ 0.6 - 1.4 ]' },
+                { category: 'Biochemistry', test: 'Total Cholestrol', result: '185', units: 'mg/dl', range: '[ 150 - 210 ]' },
             ];
-            const melodyPart = new Tone.Part((time, value) => {
-                synth.triggerAttackRelease(value.note, value.duration, time);
-            }, happyBirthdayMelody);
-            melodyPart.loop = true;
-            melodyPart.loopEnd = "3:0";
-            Tone.Transport.bpm.value = 140;
 
-            let isPlaying = false;
-            musicToggle.addEventListener('click', async () => {
-                await Tone.start();
-                if (isPlaying) {
-                    Tone.Transport.stop(); melodyPart.stop(0);
-                    playIcon.classList.remove('hidden'); pauseIcon.classList.add('hidden');
-                    isPlaying = false;
-                } else {
-                    Tone.Transport.start(); melodyPart.start(0);
-                    playIcon.classList.add('hidden'); pauseIcon.classList.remove('hidden');
-                    isPlaying = true;
-                }
+            initialData.forEach(item => createTestRow(item.category, item.test, item.result, item.units, item.range));
+            // --- End pre-population ---
+
+
+            // --- Event Listeners ---
+            addTestButton.addEventListener('click', () => {
+                createTestRow('', '', '', '', '');
             });
+
+            generateReportButton.addEventListener('click', generateReport);
             
-            // --- Confetti Logic ---
-            function launchConfetti() {
-                for (let i = 0; i < 30; i++) {
-                    const confetti = document.createElement('div');
-                    confetti.classList.add('confetti-piece');
-                    const colors = ['#f472b6', '#f9a8d4', '#fef3c7']; // Pinks, yellow
-                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.setProperty('--x-end', (Math.random() * 200 - 100) + 'px');
-                    confetti.style.transform = `translate(${Math.random() * -100}px, -50px) rotateZ(${Math.random() * 360}deg)`;
-                    document.body.appendChild(confetti);
-                    setTimeout(() => confetti.remove(), 3000);
-                }
-            }
+            clearFormButton.addEventListener('click', clearForm);
 
-            // --- Typewriter Logic ---
-            const typewriterText = document.querySelector('.typewriter-text');
-            const typewriterParas = typewriterText.querySelectorAll('p[data-text]');
-            const skipButton = document.getElementById('skipTypewriter');
-            
-            async function typeParagraph(p) {
-                return new Promise(resolve => {
-                    const text = p.getAttribute('data-text');
-                    let i = 0;
-                    p.innerHTML = '';
-                    p.classList.add('typing');
-                    typewriterTimer = setInterval(() => {
-                        if (i < text.length) {
-                            p.innerHTML += text.charAt(i);
-                            i++;
-                        } else {
-                            clearInterval(typeFwriterTimer);
-                            p.classList.remove('typing');
-                            resolve();
-                        }
-                    }, 30);
-                });
-            }
+            printButton.addEventListener('click', () => {
+                window.print();
+            });
 
-            async function startTypewriter() {
-                if (isTypewriterActive) return;
-                isTypewriterActive = true;
-                for (const p of typewriterParas) {
-                    await typeParagraph(p);
-                }
-                isTypewriterActive = false;
-                launchConfetti();
-            }
+            // --- Core Functions ---
 
-            function skipTypewriter() {
-                clearInterval(typewriterTimer);
-                isTypewriterActive = false;
-                typewriterParas.forEach(p => {
-                    p.innerHTML = p.getAttribute('data-text');
-                    p.classList.remove('typing');
-                });
-            }
-            skipButton.addEventListener('click', skipTypewriter);
-
-            function resetTypewriter() {
-                skipTypewriter();
-                typewriterParas.forEach(p => {
-                    p.innerHTML = '';
-                });
-            }
-
-
-            // --- Scratch Card Logic ---
-            const canvas = document.getElementById('scratchCanvas');
-            const ctx = canvas.getContext('2d');
-            const wishContainer = document.getElementById('wishTextContainer');
-            let isDrawing = false;
-            let confettiLaunched = false;
-
-            function setupScratchCard() {
-                if (isScratchCardSetup) return;
+            /**
+             * Creates a new row of input fields for a test result
+             */
+            function createTestRow(category, test, result, units, range) {
+                const row = document.createElement('div');
+                row.className = 'test-row';
                 
-                canvas.width = wishContainer.offsetWidth;
-                canvas.height = wishContainer.offsetHeight;
+                row.innerHTML = `
+                    <input type="text" placeholder="Category (e.g., Hematology)" class="test-category w-full p-2 border border-gray-300 rounded-md" value="${escapeHTML(category)}">
+                    <input type="text" placeholder="Test Name" class="test-name w-full p-2 border border-gray-300 rounded-md" value="${escapeHTML(test)}">
+                    <input type="text" placeholder="Result" class="test-result w-full p-2 border border-gray-300 rounded-md" value="${escapeHTML(result)}">
+                    <input type="text" placeholder="Units" class="test-units w-full p-2 border border-gray-300 rounded-md" value="${escapeHTML(units)}">
+                    <input type="text" placeholder="Reference" class="test-range w-full p-2 border border-gray-300 rounded-md" value="${escapeHTML(range)}">
+                    <button class="delete-row-button text-red-500 hover:text-red-700 font-bold text-lg" title="Delete row">
+                        &times;
+                    </button>
+                `;
 
-                ctx.fillStyle = '#fbcfe8';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                ctx.font = "bold 24px 'Inter', sans-serif";
-                ctx.fillStyle = "#c026d3";
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.fillText("Scratch Here to Reveal!", canvas.width / 2, canvas.height / 2);
-                
-                ctx.globalCompositeOperation = 'destination-out';
-                isScratchCardSetup = true;
-                confettiLaunched = false;
+                // Add delete functionality to the button
+                row.querySelector('.delete-row-button').addEventListener('click', () => {
+                    row.remove();
+                });
+
+                testRowsContainer.appendChild(row);
             }
 
-            function getCoords(e) {
-                const rect = canvas.getBoundingClientRect();
-                if (e.touches) {
-                    return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
-                }
-                return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-            }
+            /**
+             * Gathers data, groups it, and builds the HTML for the report preview
+             */
+            function generateReport() {
+                // 1. Get Patient Data
+                const patientName = document.getElementById('patient-name').value;
+                const reportDate = document.getElementById('report-date').value;
+                const patientAgeSex = document.getElementById('patient-age-sex').value;
+                const reportNote = document.getElementById('report-note').value;
 
-            function scratch(e) {
-                if (!isDrawing) return;
-                e.preventDefault();
-                const { x, y } = getCoords(e);
-                ctx.beginPath();
-                ctx.arc(x, y, 25, 0, Math.PI * 2, true);
-                ctx.fill();
-                checkScratchProgress();
-            }
+                // 2. Get Test Results
+                const testRows = testRowsContainer.querySelectorAll('.test-row');
+                const tests = [];
+                testRows.forEach(row => {
+                    tests.push({
+                        category: row.querySelector('.test-category').value,
+                        name: row.querySelector('.test-name').value,
+                        result: row.querySelector('.test-result').value,
+                        units: row.querySelector('.test-units').value,
+                        range: row.querySelector('.test-range').value,
+                    });
+                });
 
-            function startScratch(e) { isDrawing = true; scratch(e); }
-            function stopScratch() { isDrawing = false; }
+                // 3. Group tests by category
+                const groupedResults = tests.reduce((acc, test) => {
+                    const category = test.category || 'Uncategorized';
+                    if (!acc[category]) {
+                        acc[category] = [];
+                    }
+                    acc[category].push(test);
+                    return acc;
+                }, {});
 
-            function checkScratchProgress() {
-                if (confettiLaunched) return;
-                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                const data = imageData.data;
-                let clearedPixels = 0;
-                for (let i = 0; i < data.length; i += 4) {
-                    if (data[i + 3] === 0) {
-                        clearedPixels++;
+                // 4. Build Report HTML
+                let html = `
+                    <!-- Placeholder for a custom header (e.g., hospital logo/name) -->
+                    <div class="h-24 mb-6 border-b-2 border-gray-300">
+                        <p class="text-gray-400 text-center pt-8">Header Area (for letterhead, logo, etc.)</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6 text-sm">
+                        <div>
+                            <strong>Name:</strong> ${escapeHTML(patientName)}
+                        </div>
+                        <div class="text-right">
+                            <strong>Date:</strong> ${escapeHTML(reportDate)}
+                        </div>
+                        <div>
+                            <strong>Age/Sex:</strong> ${escapeHTML(patientAgeSex)}
+                        </div>
+                        <div class="text-right">
+                            <em>${escapeHTML(reportNote)}</em>
+                        </div>
+                    </div>
+
+                    <table class="w-full min-w-full text-left">
+                        <thead class="border-b-2 border-gray-400">
+                            <tr class="text-sm text-gray-700 font-semibold">
+                                <th class="py-2 pr-2">Test</th>
+                                <th class="py-2 px-2">Results</th>
+                                <th class="py-2 px-2">Units</th>
+                                <th class="py-2 pl-2">Reference Range</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                // Loop through each category and its tests
+                for (const category in groupedResults) {
+                    if (groupedResults.hasOwnProperty(category)) {
+                        // Add category header row
+                        html += `
+                            <tr class="bg-gray-50">
+                                <td colspan="4" class="pt-4 pb-2 px-1 font-bold text-lg text-gray-800">${escapeHTML(category)}</td>
+                            </tr>
+                        `;
+                        
+                        // Add rows for each test in this category
+                        groupedResults[category].forEach(test => {
+                            html += `
+                                <tr class="border-b border-gray-200">
+                                    <td class="py-2 pr-2">${escapeHTML(test.name)}</td>
+                                    <td class="py-2 px-2 font-medium text-black">:${escapeHTML(test.result)}</td>
+                                    <td class="py-2 px-2">${escapeHTML(test.units)}</td>
+                                    <td class="py-2 pl-2">${escapeHTML(test.range)}</td>
+                                </tr>
+                            `;
+                        });
                     }
                 }
-                const clearedPercent = clearedPixels / (canvas.width * canvas.height);
-                if (clearedPercent > 0.6) {
-                    launchConfetti();
-                    confettiLaunched = true;
-                }
+
+                html += `
+                        </tbody>
+                    </table>
+                    
+                    <!-- Placeholder for a custom footer (e.g., signature, address) -->
+                    <div class="h-24 mt-12 border-t-2 border-gray-300">
+                        <p class="text-gray-400 text-center pt-8">Footer Area (for signature, address, etc.)</p>
+                    </div>
+                `;
+
+                // 5. Display HTML and Print button
+                reportContent.innerHTML = html;
+                printButton.classList.remove('hidden');
             }
 
-            // Mouse events
-            canvas.addEventListener('mousedown', startScratch);
-            canvas.addEventListener('mousemove', scratch);
-            canvas.addEventListener('mouseup', stopScratch);
-            canvas.addEventListener('mouseleave', stopScratch);
-            // Touch events
-            canvas.addEventListener('touchstart', startScratch, { passive: false });
-            canvas.addEventListener('touchmove', scratch, { passive: false });
-            canvas.addEventListener('touchend', stopScratch);
+            /**
+             * Clears all form fields and the report preview
+             */
+            function clearForm() {
+                document.getElementById('patient-name').value = '';
+                document.getElementById('report-date').value = '';
+                document.getElementById('patient-age-sex').value = '';
+                document.getElementById('report-note').value = '';
+                
+                testRowsContainer.innerHTML = '';
+                
+                reportContent.innerHTML = 'Click "Generate Report" to see the preview.';
+                printButton.classList.add('hidden');
+                
+                // Add one blank row to start
+                createTestRow('', '', '', '', '');
+            }
 
-            // Redraw canvas if window resizes
-            window.addEventListener('resize', () => {
-                if (modals.wish.classList.contains('show')) {
-                    isScratchCardSetup = false;
-                    setupScratchCard();
-                }
-            });
+            /**
+             * Utility function to prevent XSS attacks
+             */
+            function escapeHTML(str) {
+                if (typeof str !== 'string') return '';
+                return str.replace(/[&<>"']/g, function(m) {
+                    return {
+                        '&': '&amp;',
+                        '<': '&lt;',
+                        '>': '&gt;',
+                        '"': '&quot;',
+                        "'": '&#039;'
+                    }[m];
+                });
+            }
 
         });
     </script>
+
 </body>
 </html>
-
