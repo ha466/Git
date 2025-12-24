@@ -1,0 +1,70 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "jian.moc3",
+		"Textures": [
+			"jian.8192/texture_00.png"
+		],
+		"Physics": "jian.physics3.json",
+		"DisplayInfo": "jian.cdi3.json",
+		"Expressions": [
+			{
+				"Name": "tears",
+				"File": "tears.exp3.json"
+			},
+			{
+				"Name": "Scene1",
+				"File": "expressions/Scene1.exp3.json"
+			},
+			{
+				"Name": "angry",
+				"File": "angry.exp3.json"
+			},
+			{
+				"Name": "blood",
+				"File": "blood.exp3.json"
+			},
+			{
+				"Name": "blush",
+				"File": "blush.exp3.json"
+			},
+			{
+				"Name": "dark_face",
+				"File": "dark_face.exp3.json"
+			},
+			{
+				"Name": "eye_roll",
+				"File": "eye_roll.exp3.json"
+			},
+			{
+				"Name": "heart_eyes",
+				"File": "heart_eyes.exp3.json"
+			},
+			{
+				"Name": "left_hand",
+				"File": "left_hand.exp3.json"
+			},
+			{
+				"Name": "right_hand",
+				"File": "right_hand.exp3.json"
+			},
+			{
+				"Name": "star_eyes",
+				"File": "star_eyes.exp3.json"
+			}
+		]
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": []
+		}
+	],
+	"HitAreas": []
+}
