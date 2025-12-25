@@ -1,0 +1,74 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "miyu.moc3",
+		"Textures": [
+			"miyu.4096/texture_00.png",
+			"miyu.4096/texture_01.png"
+		],
+		"Physics": "miyu.physics3.json",
+		"DisplayInfo": "miyu.cdi3.json",
+		"Expressions": [
+			{
+				"Name": "Facepalm",
+				"File": "exp/1.exp3.json"
+			},
+			{
+				"Name": "Peace Sign",
+				"File": "exp/2.exp3.json"
+			},
+			{
+				"Name": "Taking Photo",
+				"File": "exp/3.exp3.json"
+			},
+			{
+				"Name": "Blushing",
+				"File": "exp/4.exp3.json"
+			},
+			{
+				"Name": "Dark Face",
+				"File": "exp/5.exp3.json"
+			},
+			{
+				"Name": "Crying",
+				"File": "exp/6.exp3.json"
+			},
+			{
+				"Name": "Sweating",
+				"File": "exp/7.exp3.json"
+			},
+			{
+				"Name": "Stars",
+				"File": "exp/8.exp3.json"
+			},
+			{
+				"Name": "expression9",
+				"File": "exp/9.exp3.json"
+			},
+			{
+				"Name": "expression10",
+				"File": "exp/10.exp3.json"
+			},
+			{
+				"Name": "expression1",
+				"File": "exp/11.exp3.json"
+			}
+		]
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": [
+				"ParamEyeLOpen",
+				"ParamEyeROpen"
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		}
+	],
+	"HitAreas": []
+}
