@@ -1,0 +1,25 @@
+{
+	"Type": "Live2D Expression",
+	"Parameters": [
+		{
+			"Id": "Param27",
+			"Value": 0.943,
+			"Blend": "Add"
+		},
+		{
+			"Id": "Param30",
+			"Value": 0.543,
+			"Blend": "Add"
+		},
+		{
+			"Id": "Param31",
+			"Value": 0.857,
+			"Blend": "Add"
+		},
+		{
+			"Id": "ParamMouthOpenY",
+			"Value": 0.478,
+			"Blend": "Add"
+		}
+	]
+}
